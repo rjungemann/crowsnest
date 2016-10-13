@@ -46,7 +46,6 @@ ZOOKEEPER_PREFIX='/registrations'
 # For the "Redis" adapter:
 REDIS_URL='redis://localhost:6379'
 REDIS_PREFIX='registrations'
-end
 ```
 
 Then from your Ruby code:
@@ -128,3 +127,4 @@ adapter = Crowsnest.create(options)
   * Fill out caveats.
   * Test prefixes for Redis and Zookeeper.
   * Show how to instantiate an adapter directly.
+  * Implement `heartbeat?`
