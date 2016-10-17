@@ -18,6 +18,10 @@ class Crowsnest::Adapters::Zookeeper < Crowsnest::Adapters::Abstract
   def heartbeat(name)
   end
 
+  def heartbeat?(name)
+    false
+  end
+
   def deregister(name)
     @zk.delete("#{@prefix}/#{name}/#{hostname}")
   end

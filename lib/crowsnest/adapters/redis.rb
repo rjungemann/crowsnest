@@ -26,6 +26,10 @@ class Crowsnest::Adapters::Redis < Crowsnest::Adapters::Abstract
     @redis.expire(key, EXPIRE_TIME_SECONDS)
   end
 
+  def heartbeat?(name)
+    false
+  end
+
   def deregister(name)
     key = [@prefix, name, hostname].compact.join(':')
     @redis.del(key)

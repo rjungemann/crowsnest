@@ -19,6 +19,10 @@ class Crowsnest::Adapters::Heroku < Crowsnest::Adapters::Abstract
   def heartbeat(name)
   end
 
+  def heartbeat?(name)
+    false
+  end
+
   def deregister(name)
   end
 

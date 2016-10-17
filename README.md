@@ -127,4 +127,3 @@ adapter = Crowsnest.create(options)
   * Fill out caveats.
   * Test prefixes for Redis and Zookeeper.
   * Show how to instantiate an adapter directly.
-  * Implement `heartbeat?`

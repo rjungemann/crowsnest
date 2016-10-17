@@ -14,6 +14,10 @@ class Crowsnest::Adapters::Abstract
     raise 'Implement this.'
   end
 
+  def heartbeat?(name)
+    raise 'Implement this.'
+  end
+
   def deregister(name)
     raise 'Implement this.'
   end

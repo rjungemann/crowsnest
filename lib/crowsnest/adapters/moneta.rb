@@ -37,6 +37,10 @@ class Crowsnest::Adapters::Moneta < Crowsnest::Adapters::Abstract
     register(path)
   end
 
+  def heartbeat?(name)
+    true
+  end
+
   def deregister(path)
     mutex = ::Moneta::Mutex.new(@moneta, "#{path}:lock")
     mutex.synchronize do
