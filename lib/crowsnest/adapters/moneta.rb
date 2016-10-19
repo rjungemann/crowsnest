@@ -20,11 +20,11 @@ class Crowsnest::Adapters::Moneta < Crowsnest::Adapters::Abstract
     @moneta = ::Moneta.new(adapter, options)
   end
 
-  def register(path)
+  def register(path, key=hostname)
     mutex = ::Moneta::Mutex.new(@moneta, "#{path}:lock")
     mutex.synchronize do
       values = @moneta.fetch(path) || {}
-      values[hostname] = Time.now.to_i
+      values[key] = Time.now.to_i
       @moneta.store(path, values)
       cleanup(path)
     end
@@ -33,8 +33,8 @@ class Crowsnest::Adapters::Moneta < Crowsnest::Adapters::Abstract
   # NOTE: You are responsible for calling `heartbeat` approximately every
   # `EXPIRE_TIME_SECONDS * 0.5`. You will likely want to do this in a
   # thread or reactor.
-  def heartbeat(path)
-    register(path)
+  def heartbeat(path, key=hostname)
+    register(path, key)
   end
 
   def heartbeat?(name)
@@ -75,9 +75,5 @@ class Crowsnest::Adapters::Moneta < Crowsnest::Adapters::Abstract
     end
     @moneta.store(path, new_values)
     new_values.keys
-  end
-
-  def hostname
-    Socket.gethostname
   end
 end

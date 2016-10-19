@@ -13,10 +13,10 @@ class Crowsnest::Adapters::Heroku < Crowsnest::Adapters::Abstract
     @heroku = PlatformAPI.connect(options[:heroku_api_key] || ENV['HEROKU_API_KEY'])
   end
 
-  def register(name)
+  def register(name, key=hostname)
   end
 
-  def heartbeat(name)
+  def heartbeat(name, key=hostname)
   end
 
   def heartbeat?(name)

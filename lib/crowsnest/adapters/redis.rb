@@ -15,14 +15,14 @@ class Crowsnest::Adapters::Redis < Crowsnest::Adapters::Abstract
     @redis = Redis.new(options[:redis_url] || ENV['REDIS_URL'])
   end
 
-  def register(name)
-    key = [@prefix, name, hostname].compact.join(':')
+  def register(name, key=hostname)
+    key = [@prefix, name, key].compact.join(':')
     value = Time.now.to_i
     @redis.set(key, EXPIRE_TIME_SECONDS, value)
   end
 
-  def heartbeat(name)
-    key = [@prefix, name, hostname].compact.join(':')
+  def heartbeat(name, key=hostname)
+    key = [@prefix, name, key].compact.join(':')
     @redis.expire(key, EXPIRE_TIME_SECONDS)
   end
 
@@ -39,13 +39,5 @@ class Crowsnest::Adapters::Redis < Crowsnest::Adapters::Abstract
     prefix = [@prefix, name].compact.join(':')
     keys = [prefix, '*'].compact.join(':')
     @redis.keys(keys).map { |key| key.gsub(Regexp.new("^#{prefix}:"), '') }
-  end
-
-  # -------
-  # Helpers
-  # -------
-
-  def hostname
-    Socket.gethostname
   end
 end

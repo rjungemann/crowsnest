@@ -24,6 +24,8 @@ describe Crowsnest do
 
     it 'returns a Zookeeper adapter from environment variables' do
       ENV['ZOOKEEPER_URL'] = 'localhost:2181'
+      # Zookeeper will try and wait for a connection unless we stub this out.
+      allow(ZK::Client).to receive(:new) {}
       expect(Crowsnest.create).to be_a(Crowsnest::Adapters::Zookeeper)
     end
 

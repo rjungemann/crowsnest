@@ -11,11 +11,11 @@ class Crowsnest::Adapters::Zookeeper < Crowsnest::Adapters::Abstract
     @zk = ZK.new(options[:zookeeper_url] || ENV['ZOOKEEPER_URL'])
   end
 
-  def register(name)
-    @zk.create("#{@prefix}/#{name}/#{hostname}", 'true', ephemeral: true)
+  def register(name, key=hostname)
+    @zk.create("#{@prefix}/#{name}/#{key}", 'true', ephemeral: true)
   end
 
-  def heartbeat(name)
+  def heartbeat(name, key=hostname)
   end
 
   def heartbeat?(name)

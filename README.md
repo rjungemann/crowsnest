@@ -58,6 +58,8 @@ adapter = Crowsnest.create
 
 # Register this service.
 adapter.register('web')
+# You can also choose a key manually.
+adapter.register('web', 'foo')
 
 # If the process exits, try to deregister gracefully.
 at_exit do
@@ -68,7 +70,10 @@ end
 if adapter.heartbeat?
   Thread.new do
     loop do
-      adapter.heartbeat
+      adapter.heartbeat('web')
+      # Or...
+      adapter.heartbeat('web', 'foo')
+
       sleep 5
     end
   end

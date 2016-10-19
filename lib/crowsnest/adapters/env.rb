@@ -6,10 +6,10 @@ class Crowsnest::Adapters::Env < Crowsnest::Adapters::Abstract
   def initialize(options={})
   end
 
-  def register(name)
+  def register(name, key=hostname)
   end
 
-  def heartbeat(name)
+  def heartbeat(name, key=hostname)
   end
 
   def heartbeat?(name)
